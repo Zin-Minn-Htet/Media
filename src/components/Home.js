@@ -59,7 +59,7 @@ export default function Home() {
                         <LocalNew image={p1} />
                     </div>
                 </div>
-                <div className='col-md-4'>``
+                <div className='col-md-4'>
                     <div className='d-flex justify-content-between bg-dark p-1'>
                         <button className='btn btn-primary rounded-0 btn-sm'>Hot News</button>
                         <button className='btn btn-primary rounded-0 btn-sm'>Read More</button>
