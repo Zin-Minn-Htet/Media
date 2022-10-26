@@ -12,7 +12,6 @@ export default function Header() {
 
     const sliteData = useSelector(state => state.sliteData);
 
-
     return (
         <div className='row mt-3' >
             <div className='col-md-8'>
