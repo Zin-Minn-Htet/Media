@@ -10,3 +10,15 @@ a {
 .para {
     text-align: justify;
 }
+
+.loading-box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-100px, -75px);
+}
+
+.loading-box > img {
+    width: 200px;
+    height: 150px;
+}

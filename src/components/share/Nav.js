@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logoImage from '../../statics/logo.png'
 
 export default function Nav() {
@@ -7,7 +8,7 @@ export default function Nav() {
       <nav className="container-fluid navbar navbar-expand-lg bg-dark">
         <div className="container">
           <img src={logoImage} alt='logoImg' width='30' height='30'/>
-          <a className="navbar-brand text-white ms-2" href="#">BM Media</a>
+          <Link to="/" className="navbar-brand text-white ms-2">BM Media</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -20,13 +21,13 @@ export default function Nav() {
                 <a className="nav-link text-white" href="#">International</a>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a className="nav-link dropdown-toggle text-white" href='#' id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i className='fa fa-user' />
                 </a>
                 <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="#">Login</a></li>
-                  <li><a className="dropdown-item" href="#">Register</a></li>
-                  <li><a className="dropdown-item" href="#">Logout</a></li>
+                  <Link to="/" className="dropdown-item">Login</Link>
+                  <Link to="/register" className="dropdown-item">Register</Link>
+                  <Link to="/login" className="dropdown-item">Logout</Link>
                 </ul>
               </li>
             </ul>
