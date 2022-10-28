@@ -19,8 +19,20 @@ const sliteDataReducer = (state = intData, { type, payload }) => {
     }
 }
 
+const userReducer = (state = null, { type, payload }) => {
+    switch (type) {
+        case "addUser":
+            return state = payload;
+        case "removeUser":
+            return state = payload;
+        default:
+            return state;
+    }
+}
+
 const reducer = combineReducers({
-    sliteData: sliteDataReducer
+    sliteData: sliteDataReducer,
+    userData: userReducer
 })
 
 export default reducer;

@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Loading } from './share/Loading';
+import { addUser, removeUser } from '../redux/action'
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Login() {
 
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const userData = useSelector(state => state.userData);
+    const dispatch = useDispatch();
 
     const apiLogin = async user => {
         const response = await fetch("http://13.214.58.126:3001/users", {
@@ -15,11 +20,14 @@ export default function Login() {
             headers: { "content-type": "application/json" }
         })
         const resData = await response.json();
-        
-        if(resData.con) {
+
+        if (resData.con) {
             setLoading(false);
-            
-        }else {
+            // console.log(resData)
+            dispatch(addUser(resData.result))
+            navigate('/admin')
+        }
+        else {
             console.log(resData);
         }
     }
@@ -62,7 +70,7 @@ export default function Login() {
                         <div className='d-flex justify-content-between'>
                             <Link to="/register">Not a member yet Register here!</Link>
                             <div>
-                                <button type="reset" className="btn btn-outline-warning btn-sm` mx-2">Cancel</button>
+                                <button type="reset" className="btn btn-outline-warning btn-sm mx-2">Cancel</button>
                                 <button type="submit" className="btn btn-outline-success btn-sm">Login</button>
                             </div>
                         </div>

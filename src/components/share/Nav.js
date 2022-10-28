@@ -1,13 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import logoImage from '../../statics/logo.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import logoImage from '../../statics/logo.png';
+import { removeUser } from '../../redux/action';
 
 export default function Nav() {
+
+  const userData = useSelector(state => state.userData);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(removeUser(null));
+    navigate("/login")
+  }
+
   return (
     <div>
       <nav className="container-fluid navbar navbar-expand-lg bg-dark">
         <div className="container">
-          <img src={logoImage} alt='logoImg' width='30' height='30'/>
+          <img src={logoImage} alt='logoImg' width='30' height='30' />
           <Link to="/" className="navbar-brand text-white ms-2">BM Media</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -25,9 +37,9 @@ export default function Nav() {
                   <i className='fa fa-user' />
                 </a>
                 <ul className="dropdown-menu">
-                  <Link to="/" className="dropdown-item">Login</Link>
-                  <Link to="/register" className="dropdown-item">Register</Link>
-                  <Link to="/login" className="dropdown-item">Logout</Link>
+                  {!userData && <Link to="/login" className="dropdown-item">Login</Link>}
+                  {!userData && <Link to="/register" className="dropdown-item">Register</Link>}
+                  {userData && <li><a className='dropdown-item' onClick={logout}>Logout</a></li>}
                 </ul>
               </li>
             </ul>

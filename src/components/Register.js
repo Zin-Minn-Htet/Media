@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { Loading } from './share/Loading';
 
 
 export default function Register() {
@@ -8,9 +9,10 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
 
-    const apiLogin = async user => {
+    const apiRegister = async user => {
         const response = await fetch('http://13.214.58.126:3001/users/register', {
             method: "POST",
             body: JSON.stringify(user),
@@ -25,15 +27,16 @@ export default function Register() {
         }else {
             console.log(resData)
         }
-
+        setLoading(false)
     }
 
     const loginUser = e => {
         e.preventDefault();
+        setLoading(true)
         let user = {
             name, email, phone, password
         }
-        apiLogin(user);
+        apiRegister(user);
         setName('')
         setEmail('')
         setPhone('')
@@ -42,6 +45,7 @@ export default function Register() {
 
     return (
         <div className='container'>
+            {loading && <Loading />}
             <div className='row'>
                 <div className='col-md-6 my-5 offset-md-3 bg-dark p-5'>
                     <h3 className='text-white text-center'>Register To Be A Member</h3>
