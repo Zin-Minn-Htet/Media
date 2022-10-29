@@ -7,5 +7,5 @@ export const RouteGuard = ({children}) => {
     const userData = useSelector(state => state.userData);
 
     if(userData) return children;
-    else return <Navigate to='/login' />
+    else return <Navigate to='/login' />    
 }

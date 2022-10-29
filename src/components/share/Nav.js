@@ -32,6 +32,9 @@ export default function Nav() {
               <li className="nav-item">
                 <a className="nav-link text-white" href="#">International</a>
               </li>
+              {userData && <li className="nav-item">
+                <Link to='/admin' className="nav-link text-white">Admin</Link>
+              </li>}
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle text-white" href='#' id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i className='fa fa-user' />

@@ -22,3 +22,7 @@ a {
     width: 200px;
     height: 150px;
 }
+
+.fixHeight {
+    min-height: 500px;
+}

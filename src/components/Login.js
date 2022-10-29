@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Login() {
 
-    const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('09600600600');
+    const [password, setPassword] = useState('123123123');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const userData = useSelector(state => state.userData);
