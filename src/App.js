@@ -10,6 +10,9 @@ import FallbackRoute from "./components/share/FallbackRoute";
 import Allcat from "./components/admin/category/Allcat";
 import Addcat from "./components/admin/category/Addcat";
 import Editcat from "./components/admin/category/Editcat";
+import AllTag from "./components/admin/tag/AllTag";
+import AddTag from "./components/admin/tag/AddTag";
+import EditTag from "./components/admin/tag/EditTag";
 
 function App() {
   return (
@@ -24,6 +27,11 @@ function App() {
             <Route path="all" element={<Allcat/>}/>
             <Route path="add" element={<Addcat/>} />
             <Route path="edit/:id" element={<Editcat/>}/>
+          </Route>
+          <Route path="tags">
+            <Route path="all" element={<AllTag />} />
+            <Route path="add" element={<AddTag />} />
+            <Route path="edit/:id" element={<EditTag />} />
           </Route>
         </Route>
         <Route path="*" element={<FallbackRoute/>} />
