@@ -26,3 +26,7 @@ a {
 .fixHeight {
     min-height: 500px;
 }
+
+.post-card {
+    height: 420px;
+}

@@ -13,6 +13,9 @@ import Editcat from "./components/admin/category/Editcat";
 import AllTag from "./components/admin/tag/AllTag";
 import AddTag from "./components/admin/tag/AddTag";
 import EditTag from "./components/admin/tag/EditTag";
+import Allpost from "./components/admin/post/Allpost";
+import Addpost from "./components/admin/post/Addpost";
+import Editpost from "./components/admin/post/Editpost";
 
 function App() {
   return (
@@ -32,6 +35,11 @@ function App() {
             <Route path="all" element={<AllTag />} />
             <Route path="add" element={<AddTag />} />
             <Route path="edit/:id" element={<EditTag />} />
+          </Route>
+          <Route path="posts">
+            <Route path="all" element={<Allpost />} />
+            <Route path="add" element={<Addpost />} />
+            <Route path="edit/:id" element={<Editpost />} />
           </Route>
         </Route>
         <Route path="*" element={<FallbackRoute/>} />
