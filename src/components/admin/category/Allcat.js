@@ -10,7 +10,8 @@ const Allcat = () => {
 
   const loadCats = async () => {
       const response = await fetch("http://13.214.58.126:3001/cats");
-      const resData = await response.json()
+      const resData = await response.json();
+      console.log(resData)
       if(resData.con) {
         setCats(resData.result);
       }

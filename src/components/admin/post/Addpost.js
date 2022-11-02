@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Loading } from '../../share/Loading';
 
 const Addpost = () => {
 
@@ -11,6 +12,7 @@ const Addpost = () => {
     const [content, setContent] = useState('');
     const [cats, setCats] = useState([]);
     const [tags, setTags] = useState([]);
+    const [loading, setLoading] = useState(false);
 
 
     const onFileChange = e => {
@@ -63,15 +65,18 @@ const Addpost = () => {
             console.log(resData)
         }
 
+        setLoading(false)
     }
 
     const submitPost = e => {
+        setLoading(true)
         e.preventDefault();
         apiAddPost()
     }
 
     return (
         <div className='row'>
+            {loading && < Loading />}
             <div className='col-md-8 offset-md-2 bg-dark p-5 text-white'>
                 <h3 className='text-center mb-3'>Add New Post</h3>
                 <form onSubmit={submitPost}>

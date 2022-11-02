@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './share/Header';
 import HotNew from './share/HotNew';
 import p1 from '../statics/p1.jpg';
@@ -14,6 +14,24 @@ import SideNew from './share/SideNew';
 import SideVideoNew from './share/SideVideoNew';
 
 export default function Home() {
+
+    const [hotnew, setHotnew] = useState([]);
+    const [localNews, setLocalNews] = useState([]);
+
+    const loadHotNews = async () => {
+        const response = await fetch("http://13.214.58.126:3001/posts/paginate/1");
+        const resData = await response.json();
+        console.log(resData)
+        setHotnew(resData.result.splice(0, 6))
+    }
+    const loadLocalNews = async () => {
+        const response = await fetch("http://13.214.58.126:3001/posts/bycat/6361edd302e3e94e7b3406a4");
+        const resData = await response.json();
+        console.log(resData)
+        setLocalNews(resData.result)
+    }
+    useEffect(() => { loadHotNews(); loadLocalNews() }, []);
+
     return (
         <div className='container'>
             <Header />
@@ -24,19 +42,17 @@ export default function Home() {
                         <button className='btn btn-primary rounded-0 btn-sm'>Read More</button>
                     </div>
                     <div className='row'>
-                        <HotNew image={p1} />
-                        <HotNew image={p2} />
-                        <HotNew image={p3} />
-                        <HotNew image={p4} />
-                        <HotNew image={p5} />
-                        <HotNew image={p1} />
+                        {/* <HotNew image={p1} /> */}
+                        {
+                            hotnew.length > 0 && hotnew.map(hn => <HotNew key={hn._id} hotnew={hn} />)
+                        }
                     </div>
                     <div className='row'>
                         <div className='col-md-6'>
                             <img src={banner1} width="100%"></img>
                         </div>
                         <div className='col-md-6'>
-                            <img src={banner2}  width="100%"></img>
+                            <img src={banner2} width="100%"></img>
                         </div>
                     </div>
                 </div>
@@ -51,12 +67,11 @@ export default function Home() {
                         <button className='btn btn-primary rounded-0 btn-sm'>Read More</button>
                     </div>
                     <div className='row'>
-                        <LocalNew image={p1} />
-                        <LocalNew image={p2} />
-                        <LocalNew image={p3} />
-                        <LocalNew image={p4} />
-                        <LocalNew image={p5} />
-                        <LocalNew image={p1} />
+                        {/* "6361edd302e3e94e7b3406a4" */}
+                        {/* <LocalNew image={p1} /> */}
+                        {
+                           localNews.length > 0 && localNews.map(ln => <LocalNew key={ln._id} localNews={ln}  /> )
+                        }
                     </div>
                 </div>
                 <div className='col-md-4'>
