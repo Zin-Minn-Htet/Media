@@ -16,6 +16,8 @@ import EditTag from "./components/admin/tag/EditTag";
 import Allpost from "./components/admin/post/Allpost";
 import Addpost from "./components/admin/post/Addpost";
 import Editpost from "./components/admin/post/Editpost";
+import CatPage from "./components/CatPage";
+import PostDetail from "./components/PostDetail";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home /> } />
+        <Route path="/catpage/:type/:id" element={<CatPage /> } />
+        <Route path="/postdetail/:id" element={<PostDetail /> } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<RouteGuard><Admin /></RouteGuard>}>

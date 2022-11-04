@@ -30,3 +30,18 @@ a {
 .post-card {
     height: 420px;
 }
+
+.para-size{
+    font-size: 14px;
+}
+
+.dright > h4 {
+    justify-content: center;
+}
+
+.dright > p {
+    text-indent: 50px;
+    font-size: 14px;
+    line-height: 26px;
+    margin-top: 15px;
+}

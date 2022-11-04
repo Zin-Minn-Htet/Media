@@ -21,13 +21,11 @@ export default function Home() {
     const loadHotNews = async () => {
         const response = await fetch("http://13.214.58.126:3001/posts/paginate/1");
         const resData = await response.json();
-        console.log(resData)
         setHotnew(resData.result.splice(0, 6))
     }
     const loadLocalNews = async () => {
         const response = await fetch("http://13.214.58.126:3001/posts/bycat/6361edd302e3e94e7b3406a4");
         const resData = await response.json();
-        console.log(resData)
         setLocalNews(resData.result)
     }
     useEffect(() => { loadHotNews(); loadLocalNews() }, []);
@@ -79,9 +77,9 @@ export default function Home() {
                         <button className='btn btn-primary rounded-0 btn-sm'>Hot News</button>
                         <button className='btn btn-primary rounded-0 btn-sm'>Read More</button>
                     </div>
-                    <SideNew image={p2} />
-                    <SideNew image={p3} />
-                    <SideNew image={p4} />
+                    {
+                        hotnew.length > 0 && hotnew.map(hn => <SideNew key={hn._id} post={hn} wordcount={50} /> ) 
+                    }
                     <div className='d-flex justify-content-between bg-dark p-1 my-2'>
                         <button className='btn btn-primary rounded-0 btn-sm'>TV News</button>
                         <button className='btn btn-primary rounded-0 btn-sm'>Read More</button>
