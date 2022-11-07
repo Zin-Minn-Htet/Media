@@ -32,7 +32,7 @@ export default function CatPage() {
         setTitleName(resData.result[0].cat.name)
         setCats(resData.result.splice(0, 6))
     }
-    useEffect(() => { loadHotNews(); loadByCats() }, [cats,id]);
+    useEffect(() => { loadHotNews(); loadByCats() }, [id]);
 
     return (
         <div className='container'>

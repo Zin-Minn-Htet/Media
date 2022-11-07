@@ -13,7 +13,6 @@ const Allpost = () => {
         const response = await fetch(`http://13.214.58.126:3001/posts/paginate/${page}`);
         const resData = await response.json();
         setPosts(resData.result)
-        console.log(page)
     }
     useEffect(() => loadPosts, [page]);
 

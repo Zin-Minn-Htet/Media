@@ -42,7 +42,7 @@ export default function Nav() {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {
                 cats.length > 0 && cats.map(cat =>
-                  <li className="nav-item">
+                  <li className="nav-item" key={cat._id}>
                     <Link to={`catpage/bycat/${cat._id}`} className="nav-link active text-white"
                       aria-current="page" >{cat.name}</Link> </li>)
               }

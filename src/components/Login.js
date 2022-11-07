@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { Loading } from './share/Loading';
 import { addUser, removeUser } from '../redux/action'
@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Login() {
 
-    const [phone, setPhone] = useState('09600600600');
-    const [password, setPassword] = useState('123123123');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [check, setCheck] = useState(false)
     const navigate = useNavigate();
     const userData = useSelector(state => state.userData);
     const dispatch = useDispatch();
+    const localDB = "rember"
 
     const apiLogin = async user => {
         const response = await fetch("http://13.214.58.126:3001/users", {
@@ -20,6 +22,11 @@ export default function Login() {
             headers: { "content-type": "application/json" }
         })
         const resData = await response.json();
+        if(check) {
+            localStorage.setItem(localDB,JSON.stringify({phone,password}))
+        }else{
+            localStorage.removeItem(localDB)
+        }
 
         if (resData.con) {
             setLoading(false);
@@ -31,6 +38,15 @@ export default function Login() {
             console.log(resData);
         }
     }
+
+    useEffect(()=> {
+        let data = JSON.parse(localStorage.getItem(localDB))
+        if(data){
+            setPhone(data.phone);
+            setPassword(data.password);
+            setCheck(true)
+        }
+    },[])
 
     const loginUser = e => {
         e.preventDefault();
@@ -64,7 +80,10 @@ export default function Login() {
                                 id="password" />
                         </div>
                         <div className="mb-3 form-check">
-                            <input type="checkbox" className="form-check-input bg-dark border-white" id="exampleCheck1" />
+                            <input type="checkbox" 
+                            checked={check}
+                            onChange={e => setCheck(e.target.checked)}
+                            className="form-check-input bg-dark border-white" id="exampleCheck1" />
                             <label className="form-check-label text-white" htmlFor="exampleCheck1">Rember Me</label>
                         </div>
                         <div className='d-flex justify-content-between'>
