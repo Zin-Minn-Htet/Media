@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../../share/Loading';
+import { formPost } from '../../../utils/Api';
 
 const Addcat = () => {
 
@@ -20,14 +21,8 @@ const Addcat = () => {
     formData.append("name", name)
     formData.append("file", file)
 
-    const response = await fetch("http://13.214.58.126:3001/cats", {
-      method: "POST",
-      body: formData,
-      headers: {
-        authorization: `Bearer ${userData.token}`
-      }
-    })
-    const resData = await response.json();
+    const resData = await formPost("/cats",formData,userData.token)
+
     if (resData.con) {
       navigate('/admin/cats/all')
     } else {

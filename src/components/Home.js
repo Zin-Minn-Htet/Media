@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Header from './share/Header';
 import HotNew from './share/HotNew';
-import p1 from '../statics/p1.jpg';
-import p3 from '../statics/p3.jpg';
-import p4 from '../statics/p4.jpg';
-import p5 from '../statics/p5.jpg';
-import p2 from '../statics/p2.jpg';
 import banner1 from '../statics/banner1.jpg';
 import banner2 from '../statics/banner2.jpg';
 import sidead from '../statics/sideads.jpg';
 import LocalNew from './share/LocalNew';
 import SideNew from './share/SideNew';
 import SideVideoNew from './share/SideVideoNew';
+import { getData } from '../utils/Api';
 
 export default function Home() {
 
@@ -19,16 +15,13 @@ export default function Home() {
     const [localNews, setLocalNews] = useState([]);
 
     const loadHotNews = async () => {
-        const response = await fetch("http://13.214.58.126:3001/posts/paginate/1");
-        const resData = await response.json();
-        setHotnew(resData.result.splice(0, 6))
+        const data = await getData("/posts/paginate/1");
+        setHotnew(data.result.splice(0, 6));
+
+        const data2 = await getData("/posts/bycat/6361edd302e3e94e7b3406a4");
+        setLocalNews(data2.result)
     }
-    const loadLocalNews = async () => {
-        const response = await fetch("http://13.214.58.126:3001/posts/bycat/6361edd302e3e94e7b3406a4");
-        const resData = await response.json();
-        setLocalNews(resData.result)
-    }
-    useEffect(() => { loadHotNews(); loadLocalNews() }, []);
+    useEffect(() => { loadHotNews()}, []);
 
     return (
         <div className='container'>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../../share/Loading';
+import { getData, formPost } from '../../../utils/Api';
 
 const Addpost = () => {
 
@@ -20,8 +21,7 @@ const Addpost = () => {
     }
 
     const loadCats = async () => {
-        const response = await fetch("http://13.214.58.126:3001/cats");
-        const resData = await response.json();
+        const resData = await getData("/cats");
         if (resData.con) {
             setCats(resData.result);
         }
@@ -31,8 +31,7 @@ const Addpost = () => {
     }
 
     const loadTag = async () => {
-        const response = await fetch("http://13.214.58.126:3001/tags")
-        const resData = await response.json()
+        const resData = await getData("/tags")
         setTags(resData.result)
     }
 
@@ -49,15 +48,7 @@ const Addpost = () => {
         formData.append("cat", cat)
         formData.append("tag", tag)
 
-        const response = await fetch("http://13.214.58.126:3001/posts", {
-            method: "POST",
-            body: formData,
-            headers: {
-                authorization: `Bearer ${userData.token}`
-            }
-        });
-
-        const resData = await response.json();
+        const resData = await formPost("/posts",formData,userData.token);
 
         if (resData.con) {
             navigate("/admin/posts/all")

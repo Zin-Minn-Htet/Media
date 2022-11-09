@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
-import UiPost from './UiPost'
+import UiPost from './UiPost';
+import { getData,deleteData } from '../../../utils/Api';
 
 const Allpost = () => {
 
@@ -10,22 +11,13 @@ const Allpost = () => {
     const [page, setPage] = useState(1);
 
     const loadPosts = async () => {
-        const response = await fetch(`http://13.214.58.126:3001/posts/paginate/${page}`);
-        const resData = await response.json();
+        const resData = await getData(`/posts/paginate/${page}`);
         setPosts(resData.result)
     }
     useEffect(() => loadPosts, [page]);
 
     const deletePost = async (id) => {
-        const response = await fetch(`http://13.214.58.126:3001/posts/${id}`, {
-            method: "DELETE",
-            headers: {
-                "content-type": "application/json",
-                authorization: `bearer ${userData.token}`
-            }
-        })
-
-        const resData = await response.json();
+        const resData = await deleteData(`/posts/${id}`,userData.token);
         setPosts(resData.result)
         loadPosts();
     }

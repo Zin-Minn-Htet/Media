@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Loading } from './share/Loading';
 import { addUser, removeUser } from '../redux/action'
 import { useDispatch, useSelector } from 'react-redux';
+import { postData } from '../utils/Api';
 
 export default function Login() {
 
@@ -16,12 +17,8 @@ export default function Login() {
     const localDB = "rember"
 
     const apiLogin = async user => {
-        const response = await fetch("http://13.214.58.126:3001/users", {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: { "content-type": "application/json" }
-        })
-        const resData = await response.json();
+        const resData = await postData("/users",user);
+        
         if(check) {
             localStorage.setItem(localDB,JSON.stringify({phone,password}))
         }else{

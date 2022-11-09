@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { patchData,getData } from '../../../utils/Api';
 
 const Editcat = () => {
 
@@ -11,15 +12,8 @@ const Editcat = () => {
 
   const apiTagsUpdate = async () => {
 
-    const response = await fetch(`http://13.214.58.126:3001/tags/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({name : name}),
-      headers: {
-        "content-type" : "application/json",
-        authorization: `Bearer ${userData.token}`
-      }
-    })
-    const resData = await response.json();
+    const resData = await patchData(`/tags/${id}`,{name:name},userData.token);
+    
     if (resData.con) {
       navigate('/admin/tags/all')
     } else {
@@ -28,8 +22,7 @@ const Editcat = () => {
   }
 
   const loadTags = async () => {
-    const response = await fetch(`http://13.214.58.126:3001/tags/${id}`)
-    const resData = await response.json();
+    const resData = await getData(`/tags/${id}`)
     setName(resData.result.name)
   }
 

@@ -4,14 +4,14 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import UiAllTag from './UiAllTag';
+import {deleteData, getData} from '../../../utils/Api';
 
 function AllTag() {
 
     const [tags,setTags] = useState([]);
 
     const loadTag = async () => {
-        const response = await fetch("http://13.214.58.126:3001/tags")
-        const resData = await response.json()
+        const resData = await getData("/tags");
         setTags(resData.result)
     }
 
@@ -22,14 +22,7 @@ function AllTag() {
     const userData = useSelector(state => state.userData)
 
     const apiTagDelete = async (id) => {
-        const response = await fetch(`http://13.214.58.126:3001/tags/${id}`,{
-            method: "DELETE",
-            headers: {
-                "content-type" : "application/json",
-                authorization: `Bearer ${userData.token}`
-            }
-        })
-        const resData = await response.json();
+        const resData = await deleteData(`/tags/${id}`,userData.token)
         setTags(resData.result);
         loadTag()
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getData, patchData } from '../../../utils/Api';
 
 const EditPost = () => {
 
@@ -11,7 +12,7 @@ const EditPost = () => {
     const [content, setContent] = useState('');
     const [cats, setCats] = useState([]);
     const [tags, setTags] = useState([]);
-    const {id} = useParams();
+    const { id } = useParams();
 
 
     const onFileChange = e => {
@@ -19,8 +20,7 @@ const EditPost = () => {
     }
 
     const loadCats = async () => {
-        const response = await fetch("http://13.214.58.126:3001/cats");
-        const resData = await response.json();
+        const resData = await getData("/cats");
         if (resData.con) {
             setCats(resData.result);
         }
@@ -30,43 +30,33 @@ const EditPost = () => {
     }
 
     const loadTag = async () => {
-        const response = await fetch("http://13.214.58.126:3001/tags")
-        const resData = await response.json()
+        const resData = await getData("/tags");
         setTags(resData.result)
     }
 
     const loadPosts = async () => {
-      const response = await fetch(`http://13.214.58.126:3001/posts/${id}`);
-      const resData = await response.json();
-      setTitle(resData.result.title)
-      setContent(resData.result.content)
-      setCat(resData.result.cat)
-      setTag(resData.result.tag)
-      
+        const resData = await getData(`/posts/${id}`);
+        setTitle(resData.result.title)
+        setContent(resData.result.content)
+        setCat(resData.result.cat)
+        setTag(resData.result.tag)
+
     }
 
-    useEffect(() => { loadCats(); loadTag();loadPosts() }, []);
+    useEffect(() => { loadCats(); loadTag(); loadPosts() }, []);
 
     const userData = useSelector(state => state.userData);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const data = {
+        title: title,
+        cat: cat,
+        tag: tag,
+        content: content,
+        file: file
+    }
 
     const apiEditPost = async () => {
-        const response = await fetch(`http://13.214.58.126:3001/posts/${id}`, {
-            method: "PATCH",
-            body: JSON.stringify({
-              title:title,
-              cat: cat,
-              tag: tag,
-              content: content,
-              file: file
-            }),
-            headers: {
-                "content-type" : "application/json",
-                authorization: `Bearer ${userData.token}`
-            }
-        });
-
-        const resData = await response.json();
+        const resData = await patchData(`/posts/${id}`,data,userData.token);
 
         if (resData.con) {
             navigate("/admin/posts/all")
